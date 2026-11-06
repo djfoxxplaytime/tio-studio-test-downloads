@@ -1,0 +1,70 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TIO Studio | Business Ad Preview</title><meta name="theme-color" content="#09090b">
+<style>
+:root{--bg:#09090b;--surface:#1d1d22;--gold:#d9b878;--soft:#f1d79a;--muted:#aca5aa}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f8f7f5;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #29252a;padding:20px max(18px,calc((100vw - 1070px)/2))}header strong{letter-spacing:2px}header span{color:var(--gold);font-size:10px;letter-spacing:1px;border:1px solid #594a34;padding:8px;border-radius:8px}
+main{max-width:1070px;margin:auto;padding:26px 18px 65px}.eyebrow{font-size:11px;letter-spacing:2px;color:var(--gold);font-weight:800}.hero{margin:24px 0 27px}h1{margin:6px 0 12px;font-size:clamp(36px,6vw,63px);line-height:1.05;letter-spacing:-2px}h1 em{font-style:normal;color:var(--gold)}p{color:var(--muted);line-height:1.5}.hint{padding:11px 14px;background:#221f20;border-left:3px solid var(--gold);border-radius:9px;font-size:12px;margin:20px 0}.layout{display:grid;grid-template-columns:1fr 1fr;gap:20px}.panel{background:#151519;border:1px solid #363138;border-radius:20px;padding:22px}h2{font-size:21px;margin:0 0 20px}.step{font-size:11px;letter-spacing:1.5px;color:var(--gold);font-weight:800;margin:22px 0 10px}.upload{position:relative;display:flex;min-height:150px;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;border:1px dashed #866e48;background:#252226;border-radius:14px;padding:18px;text-align:center}.upload b{font-size:13px}.upload small{display:block;margin-top:6px;color:var(--muted)}.upload input{position:absolute;width:1px;height:1px;opacity:0}.upload img{display:none;max-width:100%;max-height:180px;object-fit:contain;margin-bottom:8px}.upload.hasPhoto img{display:block}.upload.hasPhoto .plus{display:none}.plus{font-size:33px;color:var(--gold)}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}label.field{font-size:12px;color:#d7d0ce;display:flex;flex-direction:column;gap:6px}label.wide{grid-column:1/-1}input[type=text]{min-width:0;width:100%;height:45px;border:1px solid #4b4446;background:#27252a;color:white;border-radius:10px;padding:11px;font:inherit;font-size:14px}input:focus-visible,button:focus-visible,.upload:focus-within{outline:2px solid var(--soft);outline-offset:2px}.style{border:1px solid #725c41;padding:15px;border-radius:12px;color:#f7f2ec;font-size:13px;background:#222022}.style small{display:block;color:var(--muted);margin-top:5px}
+button{font:inherit;cursor:pointer;width:100%;padding:15px;border-radius:12px;border:0;font-weight:800;min-height:53px}.gold{background:linear-gradient(105deg,#c49d64,#f1d79a);color:#16120e}.secondary{background:transparent;color:var(--gold);border:1px solid var(--gold)}button:disabled{opacity:.4;cursor:not-allowed}
+.result{min-height:340px;background:#101014;border:1px dashed #554634;border-radius:15px;display:flex;align-items:center;justify-content:center;padding:12px;text-align:center}.result img{display:block;width:100%;max-width:410px;object-fit:contain}.result img[hidden]{display:none}.result .empty{max-width:260px;color:var(--muted);font-size:14px}.result .empty b{display:block;font-size:36px;color:var(--gold);margin-bottom:10px}
+#status{min-height:20px;color:var(--soft);font-size:12px;margin:10px 0}.studios{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:26px}.studios div{padding:16px;background:#17171b;border:1px solid #363238;border-radius:14px}.studios div:first-child{border-color:#b2976a}.studios small{color:var(--gold);font-size:10px;letter-spacing:1px}.studios b{display:block;margin-top:6px}.studios p{font-size:11px;margin:6px 0 0}
+footer{padding:8px 18px 35px;text-align:center;font-size:11px;color:#91868d}
+@media(max-width:720px){.layout{grid-template-columns:1fr}.panel{padding:17px}h1{font-size:40px}.hero{margin:16px 0}.studios{grid-template-columns:1fr 1fr}.studios div:first-child{grid-column:1/-1}}
+@media(max-width:360px){.fields{grid-template-columns:1fr}label.wide{grid-column:auto}header strong{letter-spacing:1px}}
+</style></head><body>
+<header><strong>✦ &nbsp;TIO STUDIO</strong><span>BROWSER PREVIEW</span></header><main><section class="hero"><div class="eyebrow">CREATE BEYOND ORDINARY</div><h1>Your photo.<br><em>Your extraordinary ad.</em></h1><p>One real product photo. Your own offer. A clean black-and-gold advertisement you can save, straight from your browser.</p></section>
+<div class="hint"><strong>Browser test, not the Android app:</strong> This is a standalone working preview of the first Business Ad workflow. Motion and Video editing require the Android APK. No photo is uploaded to a server, and there is no generative AI or product relighting.</div>
+<div class="layout"><section class="panel"><h2>Create a Business Ad</h2><div class="step">01 / CHOOSE YOUR PHOTO</div><label class="upload" for="photo" id="upload"><img id="thumb" alt="Your imported product photo"><span class="plus">＋</span><b id="photoTitle">Tap to choose a product photo</b><small id="fileName">JPG, PNG or WEBP · up to 16MB</small><input type="file" id="photo" accept="image/jpeg,image/png,image/webp"></label>
+<div class="step">02 / TELL YOUR STORY</div><div class="fields"><label class="field wide">Business name<input type="text" id="brand" maxlength="48" placeholder="e.g. Durban Eats"></label><label class="field wide">Headline<input type="text" id="headline" maxlength="44" placeholder="e.g. Friday Burger Special"></label><label class="field">Price / offer<input type="text" id="price" maxlength="22" placeholder="R99"></label><label class="field">Call to action<input type="text" id="cta" maxlength="24" value="Order Now"></label></div>
+<div class="step">03 / CREATIVE STYLE</div><div class="style"><b>✧ Minimal Editorial Commerce</b><small>Original photo preserved · champagne gold · professional type</small></div>
+<div style="margin-top:22px"><button class="gold" id="create">Create Advertisement →</button><div id="status" role="status" aria-live="polite"></div></div></section>
+<section class="panel"><h2>Your result</h2><div class="result"><div id="empty" class="empty"><b>✧</b>Upload a genuine photo, then create a real image here.</div><img id="preview" hidden alt="Your completed business advertisement"></div><div style="margin-top:14px"><button id="save" class="secondary" disabled>↓ Save PNG to device</button></div><p style="font-size:12px">Actual output: 720 × 900 PNG. This first style is a clean editorial advertisement, not an AI scene transformation.</p></section></div>
+<div class="studios"><div><small>WEB PREVIEW AVAILABLE</small><b>01 / Business Ad Studio</b><p>Import, create, preview and PNG download</p></div><div><small>ANDROID ONLY</small><b>02 / Motion Studio</b><p>Cinematic animation and motion templates</p></div><div><small>ANDROID ONLY</small><b>03 / Video Studio</b><p>Timeline editing and native video export</p></div></div>
+</main><footer>TIO Studio · Create Beyond Ordinary · Browser-preview implementation · No login or cloud image upload</footer>
+<script>
+"use strict";
+(()=>{
+const $=id=>document.getElementById(id), file=$('photo'), inputs=['brand','headline','price','cta'].map($);
+let photo=null,objectUrl=null,output=null,resultUrl=null;
+function info(text,bad=false){$('status').textContent=text;$('status').style.color=bad?'#ff938f':'#f1d79a'}
+function clear(){output=null;$('save').disabled=true;$('empty').hidden=false;$('preview').hidden=true;if(resultUrl){URL.revokeObjectURL(resultUrl);resultUrl=null}info('')}
+inputs.forEach(i=>i.addEventListener('input',clear));
+file.addEventListener('change',async()=>{
+ clear();photo=null;
+ if(objectUrl){URL.revokeObjectURL(objectUrl);objectUrl=null}
+ const f=file.files&&file.files[0];if(!f)return;
+ if(!['image/jpeg','image/png','image/webp'].includes(f.type)||f.size>16*1024*1024||f.size<100){info('Choose a JPG, PNG or WEBP smaller than 16MB.',true);return}
+ objectUrl=URL.createObjectURL(f);
+ try{let img=new Image();img.src=objectUrl;await img.decode();if(!img.naturalWidth||!img.naturalHeight||img.naturalWidth>12000||img.naturalHeight>12000)throw Error();
+ photo=img;$('thumb').src=objectUrl;$('upload').classList.add('hasPhoto');$('photoTitle').textContent='Tap to replace your photo';$('fileName').textContent=f.name;
+ }catch(e){info('This image cannot be decoded. Try another file.',true);$('upload').classList.remove('hasPhoto')}
+});
+function shrink(ctx,text,width,size,min){while(size>min){ctx.font='800 '+size+'px system-ui,sans-serif';if(ctx.measureText(text).width<=width)break;size--}return size}
+function wrap(ctx,text,x,y,width,leading){let line='',lines=0;for(const word of text.split(/\s+/)){const s=line?line+' '+word:word;if(ctx.measureText(s).width>width&&line){ctx.fillText(line,x,y+leading*lines);lines++;line=word;if(lines>=1)break}else line=s}if(line)ctx.fillText(line,x,y+leading*lines)}
+function render(){
+ const [brand,headline,price,cta]=inputs.map(i=>i.value.trim());
+ if(!photo)throw Error('Choose a product photo first.');
+ if([brand,headline,price,cta].some(s=>!s))throw Error('Enter business name, headline, price and action.');
+ const canvas=document.createElement('canvas');canvas.width=720;canvas.height=900;const g=canvas.getContext('2d',{alpha:false});if(!g)throw Error('Canvas not supported.');
+ g.fillStyle='#121215';g.fillRect(0,0,720,900);
+ const scale=Math.min(720/photo.naturalWidth,605/photo.naturalHeight),w=photo.naturalWidth*scale,h=photo.naturalHeight*scale;
+ g.fillStyle='#252023';g.fillRect(0,35,720,605);g.drawImage(photo,(720-w)/2,35+(605-h)/2,w,h);
+ g.fillStyle='rgba(18,18,21,.96)';g.fillRect(0,646,720,254);g.fillRect(0,0,720,35);
+ g.fillStyle='#d9b878';g.font='800 20px system-ui,sans-serif';g.fillText(brand.toUpperCase(),40,27,640);
+ g.font='800 15px system-ui,sans-serif';g.fillText('FEATURED OFFER',40,687);
+ g.fillStyle='#f4efe9';g.font='800 39px system-ui,sans-serif';wrap(g,headline,40,748,640,45);
+ g.fillStyle='#d9b878';g.font='900 '+shrink(g,price,320,42,16)+'px system-ui,sans-serif';g.fillText(price,40,854,320);
+ g.fillStyle='#d9b878';g.fillRect(406,816,270,58);g.fillStyle='#121215';g.textAlign='center';g.textBaseline='middle';g.font='800 '+shrink(g,cta,245,20,12)+'px system-ui,sans-serif';g.fillText(cta,541,845,245);
+ return canvas;
+}
+$('create').addEventListener('click',async()=>{
+ clear();$('create').disabled=true;
+ try{const canvas=render();output=await new Promise((ok,no)=>canvas.toBlob(x=>x?ok(x):no(Error('PNG encoding failed')),'image/png'));
+ resultUrl=URL.createObjectURL(output);$('preview').src=resultUrl;$('preview').hidden=false;$('empty').hidden=true;$('save').disabled=false;info('Ad created. Check the image, then download your PNG.');
+ }catch(e){info(e.message||'Could not render your advertisement.',true)}finally{$('create').disabled=false}
+});
+$('save').addEventListener('click',()=>{
+ if(!output)return;
+ const url=URL.createObjectURL(output),link=document.createElement('a');link.href=url;link.download=(inputs[0].value.trim().replace(/[^a-z0-9_-]+/gi,'_').slice(0,35)||'TIO_Studio')+'_Ad.png';document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);info('Download requested. Check your browser Downloads.');
+});
+window.addEventListener('pagehide',()=>{if(objectUrl)URL.revokeObjectURL(objectUrl);if(resultUrl)URL.revokeObjectURL(resultUrl)});
+})();
+</script></body></html>
