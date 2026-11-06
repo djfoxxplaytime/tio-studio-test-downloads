@@ -1,15 +1,15 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#09090B"><title>TIO Studio | Smooth Rolling Video Filmstrip</title>
 <style>
 :root{color-scheme:dark;--gold:#D9B878;--goldlight:#F1D79A;--char:#121215;--page:#09090B;--state:paused}*{box-sizing:border-box}body{margin:0;background:var(--page);color:#F8F6F2;font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}header{height:68px;border-bottom:1px solid #33303a;display:flex;align-items:center;justify-content:space-between;padding:0 max(16px,calc((100vw - 1000px)/2))}.logo{font-size:16px;letter-spacing:2px;font-weight:900}.logo b{color:var(--gold)}.tag{font-size:10px;color:var(--gold);border:1px solid #746043;padding:7px 9px;border-radius:30px;font-weight:800}main{max-width:1000px;margin:auto;padding:25px 18px 60px}.eyebrow{letter-spacing:.14em;color:var(--gold);font-size:11px;font-weight:900}h1{font-weight:900;letter-spacing:-.04em;font-size:clamp(34px,6vw,60px);line-height:1.04;margin:7px 0 13px}h1 em{font-style:normal;color:var(--gold)}p{color:#C6BEC2}.lead{margin:0 0 25px;max-width:650px}.grid{display:grid;grid-template-columns:minmax(280px,410px) minmax(280px,1fr);gap:25px;align-items:start}.frame{padding:10px;border-radius:21px;background:#181619;border:1px solid #826a48;box-shadow:0 16px 60px #0009}.stage{width:100%;aspect-ratio:9/16;position:relative;background:#111;overflow:hidden;border-radius:13px;isolation:isolate;--state:paused;contain:layout paint;transform:translateZ(0)}.stage.running{--state:running}.stage.paused{--state:paused}
-.stage video{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%;background:#151215}.live{position:absolute;z-index:4;top:0;left:0;width:100%;height:100%;overflow:hidden;transform:translateZ(0);border:0 solid var(--gold);box-shadow:0 8px 20px #0006;animation:liveWindow 6s linear both;animation-play-state:var(--state)}.stage.running .live{border-width:1px}
+.stage video{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%;background:#151215}.live{position:absolute;z-index:4;inset:0;width:100%;height:100%;overflow:hidden;transform-origin:top left;transform:translate3d(0,0,0) scale(1);will-change:transform;border:1px solid var(--gold);border-radius:0;box-shadow:0 8px 20px #0006;backface-visibility:hidden;animation:liveWindow 6s linear both;animation-play-state:var(--state)}.stage.running .live{border-color:#D9B878}
 @keyframes liveWindow{
-0%,6%{left:0;top:0;width:100%;height:100%;border-radius:0}
-12%{left:28%;top:15%;width:44%;height:27%;border-radius:9px}
-35%{left:18%;top:17%;width:44%;height:27%;border-radius:9px}
-43%{left:38%;top:9%;width:38%;height:45%;border-radius:10px}
-64%{left:32%;top:26%;width:38%;height:40%;border-radius:10px}
-72%,87%{left:52%;top:22%;width:43%;height:31%;border-radius:12px}
-93%,100%{left:0;top:0;width:100%;height:100%;border-radius:0}
+0%,6%{transform:translate3d(0,0,0) scale(1);border-radius:0}
+12%{transform:translate3d(36%,15%,0) scale(.44);border-radius:16px}
+35%{transform:translate3d(14%,28%,0) scale(.44);border-radius:16px}
+43%{transform:translate3d(48%,12%,0) scale(.39);border-radius:18px}
+64%{transform:translate3d(31%,28%,0) scale(.39);border-radius:18px}
+72%,87%{transform:translate3d(53%,22%,0) scale(.42);border-radius:18px}
+93%,100%{transform:translate3d(0,0,0) scale(1);border-radius:0}
 }
 .scene{position:absolute;inset:0;pointer-events:none;overflow:hidden}.scene.horizontal{z-index:2;animation:phaseHorizontal 6s linear both;animation-play-state:var(--state)}
 @keyframes phaseHorizontal{0%,7%{opacity:0}10%,38%{opacity:1}42%,100%{opacity:0}}
