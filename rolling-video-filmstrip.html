@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#09090B"><title>TIO Studio | Rolling Video Filmstrip | Motion Lab</title>
+<style>
+:root{color-scheme:dark;--gold:#D9B878;--goldhi:#F1D79A;--char:#121215;--deep:#09090B;--purple:#8B5CF6;--muted:#ACA6B0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--deep);color:#f7f4f0;font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+header{height:74px;border-bottom:1px solid #302b33;display:flex;align-items:center;justify-content:space-between;padding:0 max(18px,calc((100vw - 1060px)/2));gap:8px}
+.logo{font-size:17px;font-weight:900;letter-spacing:2px;white-space:nowrap}.logo b{color:var(--gold)}.badge{color:var(--gold);border:1px solid #726044;background:#24201d;padding:7px 10px;border-radius:20px;font-weight:750;font-size:10px;letter-spacing:.09em;white-space:nowrap}
+main{max-width:1060px;margin:auto;padding:28px 20px 80px}h1{font-weight:900;letter-spacing:-.045em;font-size:clamp(35px,5.4vw,60px);line-height:1.03;margin:9px 0 14px}h1 em{font-style:normal;color:var(--gold)}p{color:#c3bbc1}.eyebrow{color:var(--gold);letter-spacing:.2em;font-weight:850;font-size:11px}.intro{max-width:800px;margin:0 0 23px}.columns{display:grid;grid-template-columns: minmax(280px,400px) minmax(280px,1fr);gap:24px;align-items:start}
+.preview{position:relative;background:linear-gradient(150deg,#241b1d,#151416);padding:11px;border:1px solid #765f41;border-radius:23px;box-shadow:0 24px 75px #0009;max-width:420px;margin:0 auto;width:100%}
+.preview canvas{width:100%;aspect-ratio:9/16;display:block;background:var(--char);border-radius:14px;object-fit:contain}
+.preview .playOverlay{position:absolute;inset:11px;border-radius:14px;display:flex;justify-content:center;align-items:center;background:#0b0a0e55;pointer-events:none}
+.preview .playOverlay span{font-size:13px;color:#120f0b;background:linear-gradient(110deg,#c9a55c,#f1d79a);font-weight:900;padding:12px 18px;border-radius:30px;box-shadow:0 6px 20px #0009}
+.preview .playOverlay[hidden]{display:none}
+.row{display:flex;gap:8px;margin-top:12px}.row button{flex:1;min-width:0}.control{border:1px solid #746044;border-radius:11px;padding:11px 10px;background:#242126;color:#eee5df;font:700 13px system-ui;cursor:pointer;min-height:45px}.control.main{border:0;background:linear-gradient(110deg,#b99558,#f1d79a);color:#150e06}.control:disabled{opacity:.45;cursor:not-allowed}.control:focus-visible,.choice:focus-visible,a:focus-visible{outline:2px solid var(--goldhi);outline-offset:3px}
+.progress{margin-top:12px;height:4px;background:#363239;border-radius:100px;overflow:hidden}.progress>div{background:var(--gold);width:0%;height:100%;transition:width .08s linear}
+.tracks{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:8px}.tracks span{font-size:10px;text-align:center;color:#9f969c;border-top:2px solid #3b3236;padding-top:7px}.tracks span.active{color:var(--gold);border-color:var(--gold)}
+.card{padding:24px;border:1px solid #343038;border-radius:20px;background:#17171b}.card h2{font-size:23px;margin:0 0 13px;letter-spacing:-.03em}.card h3{font-size:12px;letter-spacing:.13em;color:var(--gold);margin:25px 0 8px}.card p{font-size:13px;margin:10px 0}.choice{background:#272329;border:1px solid #4b4146;color:#eee;border-radius:11px;padding:11px 13px;font:700 13px system-ui;cursor:pointer}.choice[aria-pressed=true]{color:#1a1209;background:var(--gold);border-color:var(--gold)}.choicebar{display:flex;gap:9px;flex-wrap:wrap}.tag{display:inline-block;border:1px solid #5c4a39;color:#e9d4b4;border-radius:6px;padding:6px 8px;font-size:11px;margin:4px 3px 0 0}.warning{border-left:3px solid var(--gold);background:#262127;border-radius:7px;padding:12px;color:#cdc2c8;font-size:12px;margin-top:22px}.notice{font-size:12px;color:#d7bd9d;margin-top:8px;min-height:20px}.card a{color:var(--gold);text-decoration:none}.card a:hover{text-decoration:underline}.footer{padding:22px 16px;text-align:center;color:#817a7f;font-size:11px}
+@media(max-width:760px){header{height:65px;padding:0 14px}.logo{font-size:14px;letter-spacing:1px}.badge{font-size:9px}.columns{grid-template-columns:1fr}main{padding:22px 15px 70px}h1{font-size:38px}.card{padding:19px}.tracks span{font-size:9px}}
+</style>
+</head>
+<body>
+<header><div class="logo"><b>✦</b> TIO STUDIO</div><span class="badge">STORY ENGINE / MOTION LAB</span></header>
+<main>
+<div class="eyebrow">NEW ORIGINAL TEMPLATE EXPERIMENT</div>
+<h1>Rolling <em>video</em> filmstrips.</h1>
+<p class="intro">Faster from the first frame. Real video frames race through moving cinema strips, punch into a hero shot, then reorganize into a four-card finale. Tap <strong>Play</strong> to judge the new pacing.</p>
+<div class="columns">
+<div>
+<div class="preview">
+<canvas id="stage" width="360" height="640" aria-label="Rolling filmstrip composition preview with actual TIO video footage" role="img"></canvas>
+<div class="playOverlay" id="overlay"><span>▶ PLAY FILMSTRIP</span></div>
+</div>
+<div class="row"><button type="button" class="control main" id="play">▶ Play 7.5s</button><button type="button" class="control" id="pause" disabled>Ⅱ Pause</button><button type="button" class="control" id="replay">↺ Replay</button></div>
+<div class="progress" aria-hidden="true"><div id="progress"></div></div>
+<div class="tracks" id="timeline"><span class="active">HIT / 0s</span><span>ROLL / 0.4s</span><span>WHIP / 2.8s</span><span>FINALE / 5.2s</span></div>
+<div class="notice" role="status" aria-live="polite" id="notice">Loading the existing TIO café test footage…</div>
+</div>
+<div class="card">
+<h2>Less waiting. More impact.</h2>
+<p>The earlier Story Engine gave four-card scenes two seconds each. The new grammar starts with a hit, keeps video moving in rolling photo-strip lanes, and changes scene energy throughout the first four seconds.</p>
+<h3>PACING</h3><div class="choicebar"><button class="choice" aria-pressed="true" data-speed="punchy">PUNCHY</button><button class="choice" aria-pressed="false" data-speed="hyper">HYPER</button></div>
+<h3>PLAYBACK BUDGET</h3><div class="choicebar"><button class="choice" aria-pressed="true" data-decoder="1">1 live decoder</button><button class="choice" aria-pressed="false" data-decoder="2">2 live decoders</button></div>
+<p>Both use the same real test video, with independent canvas motion. A one-decoder setting is the conservative option for your Samsung. Other frames remain visually animated, but they are not separate live decoders.</p>
+<h3>THE FIRST 7.5 SECONDS</h3><div><span class="tag">0.0s · Instant hero</span><span class="tag">0.4s · Rolling strips</span><span class="tag">2.8s · Vertical whip</span><span class="tag">5.2s · Moving climax</span></div>
+<h3>EXPORT THE NEW MOTION</h3><button type="button" id="record" class="control main" style="width:100%;text-align:center" disabled>⬇ Record real canvas video (WebM)</button>
+<p>Where your browser supports <strong>MediaRecorder</strong>, this records actual moving frames into a downloadable WebM, not a screenshot. MP4 and Android integration remain separate engineering work.</p>
+<div class="warning"><strong>Early creative test, not a finished template.</strong> This proof uses the existing six-second TIO café Story Engine MP4 as an input, repeated with separate timings. It does not prove twelve different user uploads, four simultaneous hardware decoders or a finished Android MP4 export.</div>
+<p><a href="./story-engine-preview.html">← Compare with the slower original proof</a></p>
+</div>
+</div></main><div class="footer">TIO STUDIO · CREATE BEYOND ORDINARY · Black / champagne gold / restrained purple</div>
+<script>
+'use strict';
+(()=>{
+const W=360,H=640,DURATION=7.5,BPM=128,BEAT=60/BPM;
+const stage=document.getElementById('stage'),ctx=stage.getContext('2d',{alpha:false,desynchronized:true});
+const notice=document.getElementById('notice'),progress=document.getElementById('progress');
+let ready=false,playing=false,recording=false,anim=0,startStamp=0,elapsed=0,speed='punchy',decoderCount=1;
+let vids=[],videoUrl=null,mediaRecorder=null,recordChunks=[],recordedBlob=null,recordUrl=null,rafTime=0,frames=0,lagEvents=0;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),lerp=(a,b,t)=>a+(b-a)*t,fract=x=>x-Math.floor(x);
+function msg(s,error=false){notice.textContent=s;notice.style.color=error?'#ffaba5':'#d7bd9d'}
+function round(x,y,w,h,r){const q=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.roundRect(x,y,w,h,q)}
+function bg(){ctx.fillStyle='#09090B';ctx.fillRect(0,0,W,H);const g=ctx.createRadialGradient(170,330,10,170,330,410);g.addColorStop(0,'#282023');g.addColorStop(1,'#09090B');ctx.fillStyle=g;ctx.fillRect(0,0,W,H)}
+function source(n){return vids[Math.min(n%vids.length,decoderCount-1)]||vids[0]}
+function videoTile(n,x,y,w,h,{border=true,crop=.0,shine=0}={}){
+ if(w<=0||h<=0)return;ctx.save();
+ ctx.shadowColor='#000a';ctx.shadowBlur=16;ctx.shadowOffsetY=9;
+ ctx.fillStyle='#1b1718';round(x,y,w,h,9);ctx.fill();ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+ ctx.save();round(x+2,y+2,w-4,h-4,7);ctx.clip();
+ const vid=source(n);
+ if(vid && vid.readyState>=2 && vid.videoWidth>0){
+  let sw=vid.videoWidth,sh=vid.videoHeight;const scale=Math.max((w-4)/sw,(h-4)/sh);const vw=sw*scale,vh=sh*scale;
+  ctx.filter=n%3===1?'contrast(1.12) saturate(1.1)':n%3===2?'sepia(.1) contrast(1.15)':'contrast(1.08)';
+  const shiftX=(n%3-1)*crop*30,shiftY=(n%4-2)*crop*20;
+  ctx.drawImage(vid,x+(w-vw)/2+shiftX,y+(h-vh)/2+shiftY,vw,vh);ctx.filter='none';
+ }else{const g=ctx.createLinearGradient(x,y,x+w,y+h);g.addColorStop(0,'#352621');g.addColorStop(1,'#68513a');ctx.fillStyle=g;ctx.fillRect(x,y,w,h)}
+ if(shine){ctx.fillStyle='#F1D79A18';ctx.fillRect(x,y,w,Math.max(2,shine))}
+ ctx.restore();if(border){ctx.strokeStyle='#D9B878';ctx.lineWidth=1.5;round(x+1,y+1,w-2,h-2,8);ctx.stroke()}
+ ctx.restore();
+}
+function sprockets(x,y,w,h,vertical=false){ctx.fillStyle='#c5a16a';if(!vertical){for(let p=x+16;p<x+w-10;p+=30){round(p,y+2,11,5,2);ctx.fill();round(p,y+h-7,11,5,2);ctx.fill()}}else{for(let p=y+14;p<y+h-12;p+=31){round(x+2,p,5,12,2);ctx.fill();round(x+w-7,p,5,12,2);ctx.fill()}}}
+function stripHorizontal(t,offsetY,widthScale=1,dir=1,tilt=0,rate=1,index=0){const fw=156*widthScale,fh=162*widthScale,pad=22*widthScale,gap=10*widthScale,cell=fw+gap;
+ ctx.save();ctx.translate(180,offsetY);ctx.rotate(tilt);ctx.translate(-180,0);
+ const railY=0,railH=fh+28*widthScale;
+ ctx.fillStyle='#242022';ctx.fillRect(-120,railY,600,railH);
+ const offset=((t*rate*dir*270)%cell+cell)%cell;
+ for(let i=-3;i<8;i++){const x=dir>0?(-cell+ i*cell-offset):(-cell+i*cell+offset);
+  if(x<-fw-30||x>420)continue;
+  videoTile(index+i,x,railY+14*widthScale,fw,fh,{crop:0.4,shine:2});
+ }
+ sprockets(-100,railY,560,railH);ctx.restore()}
+function stripVertical(t,cx,rate,dir,index=0,width=128){const fh=220,gap=12,cell=fh+gap;
+ ctx.save();ctx.translate(cx,0);ctx.rotate((index%2?-.045:.045));ctx.translate(-cx,0);
+ ctx.fillStyle='#231e21';ctx.fillRect(cx,0,width,H);
+ const offset=((t*rate*dir*360)%cell+cell)%cell;
+ for(let i=-2;i<7;i++){const y=(dir>0? i*cell-offset : i*cell+offset)-40;
+ if(y<-fh||y>H)continue;videoTile(index+i,cx+11,y,width-22,fh,{crop:0.4,shine:2});
+ }
+ sprockets(cx,0,width,H,true);ctx.restore()}
+function centerTitle(text,y=310,sz=36){ctx.save();ctx.font=`900 ${sz}px system-ui, sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.shadowColor='#000';ctx.shadowBlur=13;ctx.fillStyle='#F1D79A';ctx.fillText(text,W/2,y,W-25);ctx.restore()}
+function cornerLabel(text){ctx.save();ctx.fillStyle='#D9B878';ctx.font='800 11px system-ui,sans-serif';ctx.textAlign='left';ctx.fillText(text,18,33);ctx.restore()}
+function vignette(){const g=ctx.createRadialGradient(180,310,130,180,320,490);g.addColorStop(0,'#0000');g.addColorStop(1,'#050407ba');ctx.fillStyle=g;ctx.fillRect(0,0,W,H)}
+function hero(t,zoom=1){const z=zoom;ctx.save();ctx.translate(W/2,H/2);ctx.scale(z,z);ctx.translate(-W/2,-H/2);videoTile(0,-15,-25,W+30,H+50,{border:false});ctx.restore()}
+function render(t){bg();let phase=0;const k=speed==='hyper'?1.55:1.0;
+ if(t<0.42){phase=0;hero(t,1.02+t*.13);vignette();cornerLabel('TIO STUDIO • STORY ENGINE');ctx.fillStyle='#121215cf';ctx.fillRect(0,430,360,92);centerTitle('NO MORE',465,39);centerTitle('BORING CLIPS',508,39);
+ }else if(t<2.82){phase=1;const q=t-.42;stripHorizontal(q,78,1.0,1,-.06,1.15*k,1);stripHorizontal(q,322,1.04,-1,.04,1.2*k,4);ctx.fillStyle='#08080cdd';ctx.fillRect(0,271,W,76);cornerLabel('01 / ROLLING FILMSTRIPS');centerTitle('ROLL THE FILM',310,28);
+ }else if(t<5.2){phase=2;const q=t-2.82;stripVertical(q,0,.86*k,1,2,124);stripVertical(q,118,.99*k,-1,4,124);stripVertical(q,237,1.15*k,1,6,124);ctx.fillStyle='#09090Baa';ctx.fillRect(0,474,W,66);centerTitle('EVERY CLIP MOVES',509,24);cornerLabel('02 / VERTICAL WHIP');
+ }else if(t<6.75){phase=3;const q=t-5.2;const bounce=1+Math.min(.14,.08*Math.sin(q*7));ctx.save();ctx.translate(W/2,H/2);ctx.scale(bounce,bounce);ctx.translate(-W/2,-H/2);videoTile(1,15,89,153,220);videoTile(0,192,65,153,239);videoTile(0,15,340,153,219);videoTile(1,192,333,153,226);ctx.restore();cornerLabel('03 / VIDEO WALL FINALE');
+ }else{phase=3;const q=t-6.75;hero(t,1.06+q*.14);ctx.fillStyle='#09090Bd8';ctx.fillRect(0,220,W,244);centerTitle('CREATE',282,41);centerTitle('BEYOND',346,43);centerTitle('ORDINARY',410,42);cornerLabel('TIO STUDIO • THE NEXT STORY');}
+ const bar=document.getElementById('timeline');for(let i=0;i<4;i++)bar.children[i].classList.toggle('active',i===phase);
+ ctx.save();ctx.fillStyle='#D9B878';ctx.fillRect(16,H-17,(W-32)*clamp(t/DURATION,0,1),3);ctx.restore();
+ progress.style.width=(100*clamp(t/DURATION,0,1)).toFixed(1)+'%';
+}
+function safePause(){for(const v of vids)v.pause()}
+function playbackStop(){playing=false;cancelAnimationFrame(anim);safePause();document.getElementById('pause').disabled=true;document.getElementById('play').textContent='▶ Play 7.5s';document.getElementById('overlay').hidden=false;if(!recording)msg('Preview ended. Replay or export your live canvas capture.');}
+async function playbackStart(forceReset=false){if(!ready){msg('Footage has not loaded yet.',true);return}if(playing)return;
+ if(forceReset||elapsed>=DURATION)elapsed=0;
+ for(let i=0;i<vids.length;i++){const v=vids[i];if(i<decoderCount){try{if(forceReset||!v.currentTime)v.currentTime=i*1.8+.3;await v.play()}catch(e){msg('Tap Play again if your browser blocks video playback.',true)}}}
+ playing=true;document.getElementById('overlay').hidden=true;document.getElementById('pause').disabled=false;document.getElementById('play').textContent='Playing…';startStamp=performance.now()-elapsed*1000;rafTime=performance.now();frames=0;lagEvents=0;
+ function tick(now){if(!playing)return;const dt=now-rafTime;rafTime=now;frames++;if(dt>65)lagEvents++;elapsed=clamp((now-startStamp)/1000,0,DURATION);render(elapsed);
+  if(elapsed>=DURATION){playbackStop();if(recording&&mediaRecorder?.state==='recording')mediaRecorder.stop();return}anim=requestAnimationFrame(tick)}
+ anim=requestAnimationFrame(tick);
+}
+async function load(){try{const res=await fetch('./story-engine-preview.html',{cache:'force-cache'});if(!res.ok)throw Error('Source preview unavailable: HTTP '+res.status);const html=await res.text();const m=html.match(/const encoded='([A-Za-z0-9+/=]+)'/);if(!m)throw Error('Could not locate original MP4 payload');const encoded=m[1];const byteStr=atob(encoded);const buf=new Uint8Array(byteStr.length);for(let i=0;i<byteStr.length;i++)buf[i]=byteStr.charCodeAt(i);if(buf.length<150000||buf.length>250000)throw Error('Invalid source size');videoUrl=URL.createObjectURL(new Blob([buf],{type:'video/mp4'}));
+ vids=[0,1].map(()=>{const v=document.createElement('video');v.src=videoUrl;v.preload='auto';v.playsInline=true;v.muted=true;v.loop=true;v.crossOrigin='anonymous';return v});await Promise.all(vids.map(v=>new Promise((resolve,reject)=>{if(v.readyState>=2)return resolve();const timer=setTimeout(()=>reject(Error('Media decoder timed out')),14000);v.addEventListener('loadeddata',()=>{clearTimeout(timer);resolve()},{once:true});v.addEventListener('error',()=>{clearTimeout(timer);reject(Error('Video format unsupported'))},{once:true})})));ready=true;render(0);msg('Real café footage ready. Hit Play for the faster filmstrip.');document.getElementById('record').disabled=!canRecord();
+ }catch(e){ready=false;msg('Cannot load source footage: '+e.message,true);document.getElementById('record').disabled=true}}
+function canRecord(){return !!(stage.captureStream&&window.MediaRecorder&&(MediaRecorder.isTypeSupported('video/webm;codecs=vp8')||MediaRecorder.isTypeSupported('video/webm')))}
+function mime(){return ['video/webm;codecs=vp8','video/webm;codecs=vp9','video/webm'].find(m=>MediaRecorder.isTypeSupported(m))}
+document.getElementById('play').addEventListener('click',()=>playbackStart(elapsed>=DURATION));
+document.getElementById('replay').addEventListener('click',async()=>{playbackStop();elapsed=0;render(0);await playbackStart(true)});
+document.getElementById('pause').addEventListener('click',()=>{if(!playing)return;playing=false;cancelAnimationFrame(anim);safePause();document.getElementById('play').textContent='▶ Resume';document.getElementById('pause').disabled=true;document.getElementById('overlay').hidden=false;msg('Paused at '+elapsed.toFixed(1)+'s');if(recording&&mediaRecorder?.state==='recording'){mediaRecorder.stop()}});
+document.querySelectorAll('[data-speed]').forEach(button=>button.addEventListener('click',()=>{speed=button.dataset.speed;document.querySelectorAll('[data-speed]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));msg('Pacing: '+speed+'. Replay to compare from the start.')}));
+document.querySelectorAll('[data-decoder]').forEach(button=>button.addEventListener('click',()=>{decoderCount=Number(button.dataset.decoder);document.querySelectorAll('[data-decoder]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));msg(decoderCount+' live decoder(s) selected.');if(playing&&decoderCount>1)vids[1].play().catch(()=>{})}));
+document.getElementById('record').addEventListener('click',async()=>{
+ if(!ready||recording||!canRecord()){msg('WebM capture unavailable in this browser.',true);return}playbackStop();recording=true;elapsed=0;recordChunks=[];if(recordUrl){URL.revokeObjectURL(recordUrl);recordUrl=null}
+ try{const s=stage.captureStream(24),codecs=mime();mediaRecorder=new MediaRecorder(s,{mimeType:codecs,videoBitsPerSecond:1900000});mediaRecorder.addEventListener('dataavailable',e=>{if(e.data?.size)recordChunks.push(e.data)});
+ mediaRecorder.addEventListener('stop',()=>{recording=false;s.getTracks().forEach(t=>t.stop());if(!recordChunks.length){msg('Browser returned no recorded video.',true);return}recordedBlob=new Blob(recordChunks,{type:'video/webm'});recordUrl=URL.createObjectURL(recordedBlob);const a=document.createElement('a');a.href=recordUrl;a.download='TIO_Rolling_Video_Filmstrip_Experiment.webm';document.body.appendChild(a);a.click();a.remove();msg('Captured '+(recordedBlob.size/1024).toFixed(0)+' KB real WebM. Check Downloads.');});
+ mediaRecorder.start(250);msg('Recording real moving canvas frames; allow 7.5 seconds…');await playbackStart(true);
+ }catch(e){recording=false;msg('Browser WebM recording failed: '+e.message,true)}
+});
+window.addEventListener('pagehide',()=>{playbackStop();if(videoUrl)URL.revokeObjectURL(videoUrl);if(recordUrl)URL.revokeObjectURL(recordUrl)});
+render(0);load();
+})();
+</script>
+</body></html>
